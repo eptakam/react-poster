@@ -1,7 +1,10 @@
 // ceci est un composant react
+
+import Post from "./components/Post";
+
 // un composant react est une fonction qui retourne du jsx
 function App() {
-  return <h1>Hello World!</h1>;
+  return <Post />;
 }
 
 export default App
