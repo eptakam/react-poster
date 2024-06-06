@@ -11,6 +11,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* centrer horizontalement et verticalement */
+  text-align: center;
+  display: flex;
+  justify-content: center; /* pour le centrage horizontal */
+  align-items: center; /* pour le centrage vertical */
+  height: 100vh; /* ou toute autre hauteur */
 }
 
 a {
@@ -66,3 +73,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
