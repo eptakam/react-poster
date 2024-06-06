@@ -17,9 +17,14 @@ function PostsList () {
     stateData[1] // the function that lets you update the state value (setter function)  
   */
 
+  const [modalIsVisible, setModalIsVisible] = useState(true);
   // initialiser l'etat enteredBody avec une chaine de caractere vide
   const [enteredBody, setEnteredBody] = useState('');
   const [enteredAuthor, setEnteredAuthor] = useState('');
+
+  function hideModalHandler() {
+    setModalIsVisible(false);
+  }
 
   // fonction a passer en parametre de l'evenement onChange
   function bodyChangeHandler(event) {
@@ -32,14 +37,28 @@ function PostsList () {
     setEnteredAuthor(event.target.value);
   }
 
+  // let modalContent;
+
+  // if (modalIsVisible) {
+  //   modalContent = (
+  //     <Modal onClose={hideModalHandler}>
+  //       <NewPost 
+  //         onBodyChange={bodyChangeHandler} 
+  //         onAuthorChange={authorChangeHandler} 
+  //       />
+  //     </Modal>
+  //   );
+  // }
+
   return(
     <>
-      <Modal>
+      {modalIsVisible && 
+      <Modal onClose={hideModalHandler}>
         <NewPost 
           onBodyChange={bodyChangeHandler} 
           onAuthorChange={authorChangeHandler} 
         />
-      </Modal>  
+      </Modal>} 
       <ul className={classes.posts}>
         <Post author={enteredAuthor} body={enteredBody} />
         <Post author="Paul" body="Check out the full course!" />
