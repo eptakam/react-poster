@@ -10,21 +10,18 @@ import Post from './Post';
 import Modal from './Modal';
 import classes from './PostsList.module.css';
 
-function PostsList () {
+function PostsList ({isPosting, onStopPosting}) {
   /*
   Note: useState() returns an array with 2 elements:
     stateData[0] // the current state value
     stateData[1] // the function that lets you update the state value (setter function)  
   */
 
-  const [modalIsVisible, setModalIsVisible] = useState(true);
   // initialiser l'etat enteredBody avec une chaine de caractere vide
   const [enteredBody, setEnteredBody] = useState('');
   const [enteredAuthor, setEnteredAuthor] = useState('');
 
-  function hideModalHandler() {
-    setModalIsVisible(false);
-  }
+  
 
   // fonction a passer en parametre de l'evenement onChange
   function bodyChangeHandler(event) {
@@ -52,8 +49,8 @@ function PostsList () {
 
   return(
     <>
-      {modalIsVisible && 
-      <Modal onClose={hideModalHandler}>
+      {isPosting && 
+      <Modal onClose={onStopPosting}>
         <NewPost 
           onBodyChange={bodyChangeHandler} 
           onAuthorChange={authorChangeHandler} 
