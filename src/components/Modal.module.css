@@ -5,7 +5,7 @@
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+  z-index: 1; /* sera positionne au-dessus lorsqu'on cliquera dessus a cause de position qui est a fixed pour faire disparaitre la boite de dialogue modale*/
 }
 
 .modal {
