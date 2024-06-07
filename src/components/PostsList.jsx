@@ -41,11 +41,24 @@ function PostsList ({isPosting, onStopPosting}) {
           onAddPost={addPostHandler}
         />
       </Modal>} 
-      <ul className={classes.posts}>
+      {posts.length > 0 && (
+        <ul className={classes.posts}>
+        {/* 
+          map : me permet de transformer mon array de post en posts de jsx element
+          key : attribut unique pour chaque element
+        */}
           {posts.map((post) => (
             <Post key={post.body} author={post.author} body={post.body} />
           ))}
       </ul>
+      )}
+      {posts.length === 0 && (
+        <div style={{ textAlign: 'center', color: 'black'}}>
+          <h2>No posts yet.</h2>
+          <p>Start adding some!</p>
+        </div>
+      
+      )}
     </>
   );
 }
