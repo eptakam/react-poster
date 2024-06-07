@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 import classes from './NewPost.module.css'
 
-function NewPost(props) {
+function NewPost({ onCancel, onAddPost }) {
   /*
   Note: useState() returns an array with 2 elements:
     stateData[0] // the current state value
@@ -38,8 +38,12 @@ function NewPost(props) {
       body: enteredBody,
       author: enteredAuthor
     };
-    console.log(postData);
-    onCancel(); // fermer le formulaire
+
+    // ajouter un nouveau post
+    onAddPost(postData);
+
+    // fermer le formulaire
+    onCancel(); 
   }
 
   return (
@@ -55,7 +59,7 @@ function NewPost(props) {
         <input type="text" id="name"required onChange={authorChangeHandler} />
       </p>
       <p className={classes.actions}>
-        <button type='button' onClick={props.onCancel}>Cancel</button>
+        <button type='button' onClick={onCancel}>Cancel</button>
         <button>Submit</button>
       </p>
     </form>
