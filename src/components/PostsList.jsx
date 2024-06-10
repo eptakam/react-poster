@@ -9,6 +9,7 @@ function PostsList ({isPosting, onStopPosting}) {
   // enregistrer les posts creer dans un tableau puis les afficher
   // [] : tableau vide
   const [posts, setPosts] = useState([]); // [posts, setPosts] = [etat, setter function]
+  const [isFectching, setIsFetching] = useState(false);
 
   /* 
     Comment afficher les posts dans la bd au premier lancement de la page?
@@ -24,13 +25,23 @@ function PostsList ({isPosting, onStopPosting}) {
     pour resoudre ce probleme, on utilisera le react hook: useEffect qui a des 'dependencies'. ces 'dependencies' seront declarees hors de la fonction fetch et parametrees de telle sorte que le fetch ne soit execute qu'au load de la page et egalement lorsque le parametre array de useEffect recevra une nouvelle valeur cad loraqu'un nouveau post sera cree
 
     le 'empty array' signifie que useEffect n'a aucune 'dependencies' et dans ce cas, le fetch n'est execute qu'une seule fois
+
+    Important:
+              Dans la realite, il y aura un temps avant que les donnees ne soient fecthees de la BD pour l'affichage.
+              pendant ce temps il faut gerer l'affichage de telle sorte que l'utilisateur ne sache pas ce qui se passe
+              en arriere plan en lui affichant un message texte, ou un spinner, etc.
+
+              pour ce faire, nous allons utiliser une autre intance de useState pour pouvoir faire d'autres choses pendant ce moment. 
+              elle sera mise au depart a false
   */
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await fetch('http://localhost:8090/posts')
+      setIsFetching(true);
+      const response = await fetch('http://localhost:8090/posts');
       const resData = await response.json();
       setPosts(resData.posts);  // posts : cle de l'objet json au niveau du backend
+      setIsFetching(false);
     }
 
     fetchPosts();
@@ -77,7 +88,7 @@ function PostsList ({isPosting, onStopPosting}) {
           onAddPost={addPostHandler}
         />
       </Modal>} 
-      {posts.length > 0 && (
+      {!isFectching && posts.length > 0 && (
         <ul className={classes.posts}>
         {/* 
           map : me permet de transformer mon array de post en posts de jsx element
@@ -88,13 +99,19 @@ function PostsList ({isPosting, onStopPosting}) {
           ))}
       </ul>
       )}
-      {posts.length === 0 && (
+      {!isFectching && posts.length === 0 && (
         <div style={{ textAlign: 'center', color: 'black'}}>
           <h2>No posts yet.</h2>
           <p>Start adding some!</p>
         </div>
       
       )}
+
+      {/* ceci sera affiche pendant le temps d'attente du fecth de la BD */}
+      {isFectching && (
+        <div style={{ textAlign: 'center', color: 'white'}}>
+          <p>Loading posts...</p>
+        </div>)}
     </>
   );
 }
