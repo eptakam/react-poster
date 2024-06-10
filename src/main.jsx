@@ -6,14 +6,22 @@ import App from './App.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NewPost from './components/NewPost.jsx';
+import RootLayout from './routes/RootLayout.jsx';
 
 /*
   Nous allons ajouter des urls pour: la page d'acceuil, un nouveau post, les details d'un post existant
 */
 
 const router = createBrowserRouter([
-  { path: '/', element: <App /> },  // composant react de la main page
-  { path: '/create-post', element: <NewPost />},
+  { 
+    path: '/', 
+    element: <RootLayout />,
+    children: [
+      { path: '/', element: <App /> },  // composant react de la main page
+      { path: '/create-post', element: <NewPost />},
+    ]
+  },  // permet d'organiser la position des composants
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
