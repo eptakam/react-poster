@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NewPost from './routes/NewPost.jsx';
+import NewPost, { action as newPostAction } from './routes/NewPost.jsx';
 import RootLayout from './routes/RootLayout.jsx';
 import Posts, { loader as postsLoader } from './routes/Posts.jsx';
 
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Posts />, 
         // loader nous permet de charger en avance les elements qu'aura besoin le composant Posts avant que 'Posts' ne soit retourne
         loader: postsLoader,
-        children: [{ path: '/create-post', element: <NewPost />}], 
+        children: [{ path: '/create-post', element: <NewPost />, action: newPostAction}], 
       },      
     ],
   },  // permet d'organiser la position des composants  

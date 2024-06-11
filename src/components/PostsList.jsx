@@ -49,21 +49,13 @@ function PostsList () {
 
   // ajouter un post
   function addPostHandler(postData) {
-    // inserer le nouveau post dans la BD au travers d'une requete http
-    // 8090: port du serveur
-    fetch('http://localhost:8090/posts', {
-      method: 'POST',
-      body: JSON.stringify(postData), // convertir l'objet en chaine de caractere (body : les donnees a envoyer)
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    
 
     /*
       postData : le nouveau post a ajouter
       ...prevPosts : les posts existants
     */
-    setPosts((prevPosts) => [postData, ...prevPosts]); 
+    // setPosts((prevPosts) => [postData, ...prevPosts]); 
   }
   
   // let modalContent;
