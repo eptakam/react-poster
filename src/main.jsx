@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NewPost, { action as newPostAction } from './routes/NewPost.jsx';
 import RootLayout from './routes/RootLayout.jsx';
 import Posts, { loader as postsLoader } from './routes/Posts.jsx';
+import PostDetails, { loader as postDetailsLoader } from './routes/PostDetails.jsx';
 
 /* 
   Nous allons ajouter des urls pour: la page d'acceuil, un nouveau post, les details d'un post existant
@@ -21,7 +22,12 @@ const router = createBrowserRouter([
         element: <Posts />, 
         // loader nous permet de charger en avance les elements qu'aura besoin le composant Posts avant que 'Posts' ne soit retourne
         loader: postsLoader,
-        children: [{ path: '/create-post', element: <NewPost />, action: newPostAction}], 
+        children: [
+          { path: '/create-post', element: <NewPost />, action: newPostAction },
+          
+          // nous allons ajouter un path pour pouvoir avoir les details d'un post lorsqu'on clique dessus. pour ce faire, il est necessaire d'avoir l'id de ce post pouvoir le recuperer au niveau de la BD
+          { path: '/:postId', element: <PostDetails />, loader: postDetailsLoader }
+        ], 
       },      
     ],
   },  // permet d'organiser la position des composants  

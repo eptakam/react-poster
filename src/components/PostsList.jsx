@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 // 
 import { useLoaderData } from 'react-router-dom';
@@ -80,7 +80,7 @@ function PostsList () {
           key : attribut unique pour chaque element
         */}
           {posts.map((post) => (
-            <Post key={post.body} author={post.author} body={post.body} />
+            <Post key={post.id} id={post.id} author={post.author} body={post.body} />
           ))}
       </ul>
       )}
