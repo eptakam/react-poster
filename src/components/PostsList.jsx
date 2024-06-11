@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 
+// 
+import { useLoaderData } from 'react-router-dom';
+
 import Post from './Post';
 import classes from './PostsList.module.css';
 
 function PostsList () {
+  const posts = useLoaderData();
   // enregistrer les posts creer dans un tableau puis les afficher
-  // [] : tableau vide
-  const [posts, setPosts] = useState([]); // [posts, setPosts] = [etat, setter function]
-  const [isFectching, setIsFetching] = useState(false);
+  // // [] : tableau vide
+  // const [posts, setPosts] = useState([]); // [posts, setPosts] = [etat, setter function]
+  // const [isFectching, setIsFetching] = useState(false);
 
   /* 
     Comment afficher les posts dans la bd au premier lancement de la page?
@@ -33,17 +37,15 @@ function PostsList () {
               elle sera mise au depart a false
   */
 
-  useEffect(() => {
-    async function fetchPosts() {
-      setIsFetching(true);
-      const response = await fetch('http://localhost:8090/posts');
-      const resData = await response.json();
-      setPosts(resData.posts);  // posts : cle de l'objet json au niveau du backend
-      setIsFetching(false);
-    }
+  // useEffect(() => {
+  //   async function fetchPosts() {
+  //     setIsFetching(true);
+  //     setPosts(resData.posts);  // posts : cle de l'objet json au niveau du backend
+  //     setIsFetching(false);
+  //   }
 
-    fetchPosts();
-  }, []);
+  //   fetchPosts();
+  // }, []);
 
   // ajouter un post
   function addPostHandler(postData) {
@@ -79,7 +81,7 @@ function PostsList () {
 
   return(
     <>
-      {!isFectching && posts.length > 0 && (
+      {posts.length > 0 && (
         <ul className={classes.posts}>
         {/* 
           map : me permet de transformer mon array de post en posts de jsx element
@@ -90,7 +92,7 @@ function PostsList () {
           ))}
       </ul>
       )}
-      {!isFectching && posts.length === 0 && (
+      {posts.length === 0 && (
         <div style={{ textAlign: 'center', color: 'black'}}>
           <h2>No posts yet.</h2>
           <p>Start adding some!</p>
@@ -99,10 +101,10 @@ function PostsList () {
       )}
 
       {/* ceci sera affiche pendant le temps d'attente du fecth de la BD */}
-      {isFectching && (
+      {/* {isFectching && (
         <div style={{ textAlign: 'center', color: 'white'}}>
           <p>Loading posts...</p>
-        </div>)}
+        </div>)} */}
     </>
   );
 }

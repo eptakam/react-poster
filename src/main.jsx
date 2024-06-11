@@ -6,9 +6,9 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NewPost from './routes/NewPost.jsx';
 import RootLayout from './routes/RootLayout.jsx';
-import Posts from './routes/Posts.jsx';
+import Posts, { loader as postsLoader } from './routes/Posts.jsx';
 
-/*
+/* 
   Nous allons ajouter des urls pour: la page d'acceuil, un nouveau post, les details d'un post existant
 */
 
@@ -19,8 +19,10 @@ const router = createBrowserRouter([
     children: [
       { path: '/', 
         element: <Posts />, 
+        // loader nous permet de charger en avance les elements qu'aura besoin le composant Posts avant que 'Posts' ne soit retourne
+        loader: postsLoader,
         children: [{ path: '/create-post', element: <NewPost />}], 
-      }      
+      },      
     ],
   },  // permet d'organiser la position des composants  
 ]);
