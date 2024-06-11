@@ -4,10 +4,12 @@
 // they all begin by use and they most only execute in a React component or a custom Hook
 // useState : is a function that returns an array with 2 elements
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import classes from './NewPost.module.css'
+import Modal from '../components/Modal';
 
-function NewPost({ onCancel, onAddPost }) {
+function NewPost({ onAddPost }) {
   /*
   Note: useState() returns an array with 2 elements:
     stateData[0] // the current state value
@@ -43,26 +45,30 @@ function NewPost({ onCancel, onAddPost }) {
     onAddPost(postData);
 
     // fermer le formulaire
-    onCancel(); 
+    // onCancel(); 
   }
 
   return (
-    // onSubmit se chargera d'appeler addeventlistener en arriere plan pour ecouter chaque soumission du formulaire
-    <form className={classes.form} onSubmit={submitHandler}>
-      <p>
-        <label htmlFor="body">Text</label>
-        <textarea id="body" required rows={3} onChange={bodyChangeHandler} />
-        {/* onChange se chargera d'appeler addeventlistener en arriere plan pour ecouter chaque changement dans la zone de texte le body qui se trouve dans PostsList en occurrence*/}
-      </p>
-      <p>
-        <label htmlFor="name">Your name</label>
-        <input type="text" id="name"required onChange={authorChangeHandler} />
-      </p>
-      <p className={classes.actions}>
-        <button type='button' onClick={onCancel}>Cancel</button>
-        <button>Submit</button>
-      </p>
-    </form>
+    // le formulaire pour le nouveau doit etre modal cad etre affiche au-dessus de la main page. d'ou nous allons utiliser notre composant Modal pour envelopper (wrapper) les elements qui seront retournes
+
+    <Modal>
+      {/* onSubmit se chargera d'appeler addeventlistener en arriere plan pour ecouter chaque soumission du formulaire */}
+      <form className={classes.form} onSubmit={submitHandler}>
+        <p>
+          <label htmlFor="body">Text</label>
+          <textarea id="body" required rows={3} onChange={bodyChangeHandler} />
+          {/* onChange se chargera d'appeler addeventlistener en arriere plan pour ecouter chaque changement dans la zone de texte le body qui se trouve dans PostsList en occurrence*/}
+        </p>
+        <p>
+          <label htmlFor="name">Your name</label>
+          <input type="text" id="name"required onChange={authorChangeHandler} />
+        </p>
+        <p className={classes.actions}>
+          <Link to=".." type='button'>Cancel</Link>
+          <button>Submit</button>
+        </p>
+      </form>
+    </Modal>
   );
 }
 

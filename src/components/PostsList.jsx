@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import NewPost from './NewPost';
 import Post from './Post';
-import Modal from './Modal';
 import classes from './PostsList.module.css';
 
-function PostsList ({isPosting, onStopPosting}) {
+function PostsList () {
   // enregistrer les posts creer dans un tableau puis les afficher
   // [] : tableau vide
   const [posts, setPosts] = useState([]); // [posts, setPosts] = [etat, setter function]
@@ -81,13 +79,6 @@ function PostsList ({isPosting, onStopPosting}) {
 
   return(
     <>
-      {isPosting && 
-      <Modal onClose={onStopPosting}>
-        <NewPost 
-          onCancel={onStopPosting}
-          onAddPost={addPostHandler}
-        />
-      </Modal>} 
       {!isFectching && posts.length > 0 && (
         <ul className={classes.posts}>
         {/* 

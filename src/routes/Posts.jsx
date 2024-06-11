@@ -16,30 +16,34 @@
 // construire un post-list component
 // import Post from "./components/Post";
 
-import { useState } from "react";
-import PostsList from "./components/PostsList";
-import MainHeader from "./components/MainHeader";
+// import { useState } from "react";
+import PostsList from "../components/PostsList";
+import { Outlet } from "react-router-dom";
 
 // un composant react est une fonction qui retourne du jsx
-function App() {
-  const [modalIsVisible, setModalIsVisible] = useState(false);
+function Posts() {
+  // const [modalIsVisible, setModalIsVisible] = useState(false);
 
-  function hideModalHandler() {
-    setModalIsVisible(false);
-  }
+  // function hideModalHandler() {
+  //   setModalIsVisible(false);
+  // }
 
-  function showModalHandler() {
-    setModalIsVisible(true);
-  }
+  // function showModalHandler() {
+  //   setModalIsVisible(true);
+  // }
 
   return (
     <>
-      <MainHeader onCreatePost={showModalHandler}/>
+      <Outlet />
       <main>
-        <PostsList isPosting={modalIsVisible} onStopPosting={hideModalHandler}/>
+        <PostsList />
+        {/* <PostsList 
+          // isPosting={modalIsVisible} 
+          // onStopPosting={hideModalHandler}
+        /> */}
       </main>
     </>
   );
 }
 
-export default App
+export default Posts;
